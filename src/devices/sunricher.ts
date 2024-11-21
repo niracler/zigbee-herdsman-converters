@@ -211,6 +211,13 @@ async function syncTime(endpoint: Zh.Endpoint) {
 
 const definitions: DefinitionWithExtend[] = [
     {
+        zigbeeModel: ['HK-ZRC-K5&RS-E'],
+        model: 'SR-ZG2836D5-Pro',
+        vendor: 'Sunricher',
+        description: 'Zigbee smart remote',
+        extend: [battery(), commandsOnOff(), commandsLevelCtrl()],
+    },
+    {
         zigbeeModel: ['HK-SL-DIM-AU-K-A'],
         model: 'SR-ZG2835PAC-AU',
         vendor: 'Sunricher',
