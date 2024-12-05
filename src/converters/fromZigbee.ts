@@ -187,6 +187,8 @@ const converters1 = {
                 result[postfixWithEndpointName('ac_louver_position', msg, model, meta)] =
                     constants.thermostatAcLouverPositions[msg.data['acLouverPosition']];
             }
+            console.log(result);
+
             return result;
         },
     } satisfies Fz.Converter,

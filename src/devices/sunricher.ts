@@ -323,6 +323,32 @@ function sunricherSRZG2836D5Pro(): ModernExtend {
     };
 }
 
+function sunricherSRZG9093TRV(): ModernExtend {
+    const fromZigbee: Fz.Converter[] = [
+        fz.thermostat, //, fz.namron_thermostat,
+        {
+            cluster: 'hvacThermostat',
+            type: ['attributeReport'],
+            convert: (model, msg, publish, options, meta) => {
+                console.log('data', msg.data);
+            },
+        },
+    ];
+
+    const configure: [Configure] = [
+        async (device, coordinatorEndpoint, definition) => {
+            const endpoint = device.getEndpoint(1);
+            await endpoint.bind('hvacThermostat', coordinatorEndpoint);
+        },
+    ];
+
+    return {
+        fromZigbee,
+        configure,
+        isModernExtend: true,
+    };
+}
+
 const fzLocal = {
     sunricher_SRZGP2801K45C: {
         cluster: 'greenPower',
@@ -362,6 +388,13 @@ async function syncTime(endpoint: Zh.Endpoint) {
 }
 
 const definitions: DefinitionWithExtend[] = [
+    {
+        zigbeeModel: ['ZG9340'],
+        model: 'SR-ZG9093TRV',
+        vendor: 'Sunricher',
+        description: 'Zigbee Thermostatic Radiator Valve',
+        extend: [battery(), sunricherSRZG9093TRV()],
+    },
     {
         zigbeeModel: ['HK-ZRC-K5&RS-E'],
         model: 'SR-ZG2836D5-Pro',
